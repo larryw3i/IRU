@@ -1,4 +1,7 @@
 
+# REFRENCE  https://solarianprogrammer.com/2018/04/21/ \
+# python-opencv-show-video-tkinter-window/
+
 import tkinter
 import cv2
 import PIL.Image, PIL.ImageTk
@@ -12,7 +15,7 @@ class MainUI:
 
         # open video source (by default this will try 
         # to open the computerbcam)
-        self.vid = MyVideoCapture(self.video_source)
+        self.vid = VideoCapture(self.video_source)
 
         # Create a canvas that can fit the above 
         # video source size
@@ -22,7 +25,7 @@ class MainUI:
         self.canvas.pack()
 
         # Button that lets the user take a snapshot
-        self.btn_snapshot=tkinter.Button(
+        self.btn_snapshot = tkinter.Button(
             window, text="Snapshot", 
             width=50, command=self.snapshot)
 
@@ -46,7 +49,7 @@ class MainUI:
             cv2.imwrite("frame-" + time.strftime(
                 "%d-%m-%Y-%H-%M-%S") + ".g",
                 cv2.cvtColor(frame, 
-                cv2.COLOR_RGB2BGR))
+                cv2.COLOR_RGB2BGR) )
 
     def update(self):
         # Get a frame from the video source
@@ -63,7 +66,7 @@ class MainUI:
         self.window.after(self.delay, self.update)
 
 
-class MyVideoCapture:
+class VideoCapture:
     def __init__(self, video_source=0):
         # Open the video source
         self.vid = cv2.VideoCapture(video_source)
