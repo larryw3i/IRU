@@ -56,14 +56,10 @@ class Commands:
         self.vid = vid
         self.canvas = canvas
         self.delay = delay
+        self.stop_getting_frame = False
 
     def make_rect4face(self):
-        for top, right, bottom, left in zip(self.face_locations):
-            # Scale back up face locations since the frame we detected in was scaled to 1/4 size
-            top *= 4
-            right *= 4
-            bottom *= 4
-            left *= 4
+        for top, right, bottom, left in self.face_locations:
 
             # Draw a box around the face
             cv2.rectangle(self.color_frame, \
@@ -78,19 +74,22 @@ class Commands:
             self.color_frame = cv2.cvtColor( frame, cv2.COLOR_RGB2BGR )
             self.face_locations = face_recognition.face_locations(
                 self.color_frame)
-                
+
             self.make_rect4face()
+
+            self.stop_getting_frame = True
+
+            self.color_frame = PIL.ImageTk.PhotoImage(
+                image = PIL.Image.fromarray( self.color_frame  ) )
 
             self.canvas.create_image(
                 0, 0, image = self.color_frame, 
                 anchor = tkinter.NW )
-
-            cv2.imwrite("frame-" + time.strftime(
-                "%d-%m-%Y-%H-%M-%S") + ".g",
-                cv2.cvtColor(frame, 
-                cv2.COLOR_RGB2BGR) )
+            
 
     def update(self):
+
+        if self.stop_getting_frame: return
 
         # Get a frame from the video source
         ret, frame = self.vid.get_frame()
