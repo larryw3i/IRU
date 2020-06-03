@@ -4,6 +4,7 @@ import cv2
 import PIL.Image, PIL.ImageTk
 import time
 from iru import _
+import face_recognition
 
 
 class VideoCapture:
@@ -56,12 +57,34 @@ class Commands:
         self.canvas = canvas
         self.delay = delay
 
+    def make_rect4face(self):
+        for top, right, bottom, left in zip(self.face_locations):
+            # Scale back up face locations since the frame we detected in was scaled to 1/4 size
+            top *= 4
+            right *= 4
+            bottom *= 4
+            left *= 4
+
+            # Draw a box around the face
+            cv2.rectangle(self.color_frame, \
+                (left, top), (right, bottom), (0, 0, 255), 2)
+
+
     def snapshot(self):
 
-        # Get a frame from the video source
         ret, frame = self.vid.get_frame()
 
         if ret:
+            self.color_frame = cv2.cvtColor( frame, cv2.COLOR_RGB2BGR )
+            self.face_locations = face_recognition.face_locations(
+                self.color_frame)
+                
+            self.make_rect4face()
+
+            self.canvas.create_image(
+                0, 0, image = self.color_frame, 
+                anchor = tkinter.NW )
+
             cv2.imwrite("frame-" + time.strftime(
                 "%d-%m-%Y-%H-%M-%S") + ".g",
                 cv2.cvtColor(frame, 
