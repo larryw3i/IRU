@@ -1,7 +1,9 @@
 
+
+from tkinter import filedialog
 import tkinter
 import cv2
-import PIL.Image, PIL.ImageTk
+from PIL import Image, ImageTk
 import time
 from iru import _
 import face_recognition
@@ -65,6 +67,20 @@ class Commands:
             cv2.rectangle(self.color_frame, \
                 (left, top), (right, bottom), (0, 0, 255), 2)
 
+    def  select_image(self):
+        path = filedialog.askopenfilename(\
+            filetypes=[("Image File",'.jpg')])
+        im = Image.open(path)
+        tkimage = ImageTk.PhotoImage(im)
+
+        self.face_locations = face_recognition.face_locations( im )
+
+        self.make_rect4face()
+
+        self.canvas.create_image(
+            0, 0, image = im, 
+            anchor = tkinter.NW )
+
 
     def snapshot(self):
 
@@ -79,8 +95,8 @@ class Commands:
 
             self.stop_getting_frame = True
 
-            self.color_frame = PIL.ImageTk.PhotoImage(
-                image = PIL.Image.fromarray( self.color_frame  ) )
+            self.color_frame = ImageTk.PhotoImage(
+                image = Image.fromarray( self.color_frame  ) )
 
             self.canvas.create_image(
                 0, 0, image = self.color_frame, 
@@ -95,8 +111,8 @@ class Commands:
         ret, frame = self.vid.get_frame()
 
         if ret:
-            self.photo = PIL.ImageTk.PhotoImage(
-                image = PIL.Image.fromarray( frame ) )
+            self.photo = ImageTk.PhotoImage(
+                image = Image.fromarray( frame ) )
                 
             self.canvas.create_image(
                 0, 0, image = self.photo, 

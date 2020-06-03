@@ -23,11 +23,19 @@ def main_ui():
             window, text= _("Snapshot"), 
             width=50, command= commands.snapshot )
 
+    select_image_btn = tkinter.Button(
+            window, text= _("Select image"), 
+            width=50, command= commands.select_image )
+
     window.title ( _('IRU') )
 
     vid_canvas.pack()
 
     snapshot_btn.pack(
+        anchor=tkinter.CENTER, 
+        expand=True )
+
+    select_image_btn.pack(
         anchor=tkinter.CENTER, 
         expand=True )
     
