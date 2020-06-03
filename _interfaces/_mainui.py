@@ -68,19 +68,30 @@ class Commands:
                 (left, top), (right, bottom), (0, 0, 255), 2)
 
     def  select_image(self):
+
+        self.stop_getting_frame = True
+
         path = filedialog.askopenfilename(\
             filetypes=[("Image File",'.jpg')])
-        im = Image.open(path)
-        tkimage = ImageTk.PhotoImage(im)
 
-        self.face_locations = face_recognition.face_locations( im )
+        if not path: 
+            self.stop_getting_frame = False
+            return
+
+        self.color_frame = face_recognition.load_image_file( path )
+
+        self.face_locations = face_recognition.face_locations( 
+            self.color_frame )
 
         self.make_rect4face()
 
-        self.canvas.create_image(
-            0, 0, image = im, 
-            anchor = tkinter.NW )
+        self.color_frame = ImageTk.PhotoImage(
+            image = Image.fromarray( self.color_frame  ) )
 
+
+        self.canvas.create_image(
+            0, 0, image = self.color_frame, 
+            anchor = tkinter.NW )
 
     def snapshot(self):
 
