@@ -28,27 +28,25 @@ def main_ui():
             width=50, command= commands.select_image )
     
     name_label = tkinter.Label(
-        window, text = _('Who is (s)he?')
+        window, text = _('name')
     )
     
-    name_text = tkinter.Text(
+    name_entry = tkinter.Entry(
         window,
     )
 
     window.title ( _('IRU') )
 
-    vid_canvas.pack()
+    vid_canvas.grid( 
+        column = 0, row = 0 ,
+        columnspan = 2 , rowspan = 2, )
 
-    snapshot_btn.pack(
-        anchor=tkinter.CENTER, 
-        expand=True )
+    name_label.grid( column=2, row=0 )
+    name_entry.grid( column=3, row=1 )
 
-    select_image_btn.pack(
-        anchor=tkinter.CENTER, 
-        expand=True )
+    snapshot_btn.grid( column=2, row=2 )
+    select_image_btn.grid( column=2, row=2 )
 
-    name_label.pack()
-    name_text.pack()
     
     commands.update()
     
