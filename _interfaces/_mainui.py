@@ -14,7 +14,6 @@ class VideoCapture:
         self, 
         video_source = 0):
 
-        # Open the video source
         self.vid = cv2.VideoCapture(video_source)
 
         if not self.vid.isOpened():
@@ -22,7 +21,6 @@ class VideoCapture:
                 _( "Unable to open video source") , 
                 video_source)
 
-        # Get video source width and height
         self.width = self.vid.get(cv2.CAP_PROP_FRAME_WIDTH)
         self.height = self.vid.get(cv2.CAP_PROP_FRAME_HEIGHT)
 
@@ -30,8 +28,7 @@ class VideoCapture:
         if self.vid.isOpened():
             ret, frame = self.vid.read()
             if ret:
-                # Return a boolean success flag and the 
-                # current frame nvertedto BGR
+
                 return (ret, cv2.cvtColor(
                     frame, cv2.COLOR_BGR2RGB))
             else:
@@ -39,7 +36,6 @@ class VideoCapture:
         else:
             return (ret, None)
 
-    # Release the video source when the object is destroyed
     def __del__(self):
         if self.vid.isOpened():
             self.vid.release()
@@ -54,17 +50,30 @@ class Commands:
         canvas: tkinter.Canvas,
         delay = 15
         ):
+
         self.window = window
         self.vid = vid
         self.canvas = canvas
         self.delay = delay
         self.stop_getting_frame = False
+    
+    def place_image2tk(self):
+
+        self.frame = ImageTk.PhotoImage(
+            image = Image.fromarray( self.frame  ) )
+
+        self.canvas.create_image(
+            0, 0, image = self.frame, 
+            anchor = tkinter.NW )
 
     def make_rect4face(self):
+
+        self.face_locations = face_recognition.face_locations(
+            self.frame)
+
         for top, right, bottom, left in self.face_locations:
 
-            # Draw a box around the face
-            cv2.rectangle(self.color_frame, \
+            cv2.rectangle( self.frame, \
                 (left, top), (right, bottom), (0, 0, 255), 2)
 
     def  select_image(self):
@@ -78,55 +87,40 @@ class Commands:
             self.stop_getting_frame = False
             return
 
-        self.color_frame = face_recognition.load_image_file( path )
+        self.frame = face_recognition.load_image_file( path )
 
         self.face_locations = face_recognition.face_locations( 
-            self.color_frame )
+            self.frame )
 
         self.make_rect4face()
 
-        self.color_frame = ImageTk.PhotoImage(
-            image = Image.fromarray( self.color_frame  ) )
+        self.place_image2tk()
 
-
-        self.canvas.create_image(
-            0, 0, image = self.color_frame, 
-            anchor = tkinter.NW )
 
     def snapshot(self):
 
-        ret, frame = self.vid.get_frame()
+        ret, self.frame = self.vid.get_frame()
 
         if ret:
-            self.color_frame = cv2.cvtColor( frame, cv2.COLOR_RGB2BGR )
-            self.face_locations = face_recognition.face_locations(
-                self.color_frame)
 
             self.make_rect4face()
 
             self.stop_getting_frame = True
 
-            self.color_frame = ImageTk.PhotoImage(
-                image = Image.fromarray( self.color_frame  ) )
-
-            self.canvas.create_image(
-                0, 0, image = self.color_frame, 
-                anchor = tkinter.NW )
+            self.place_image2tk()
             
 
     def update(self):
 
         if self.stop_getting_frame: return
 
-        # Get a frame from the video source
-        ret, frame = self.vid.get_frame()
+        ret, self.frame = self.vid.get_frame()
 
         if ret:
-            self.photo = ImageTk.PhotoImage(
-                image = Image.fromarray( frame ) )
-                
-            self.canvas.create_image(
-                0, 0, image = self.photo, 
-                anchor = tkinter.NW )
+            self.face_locations = face_recognition.face_locations(\
+                self.frame)
+            
+            self.make_rect4face()
+            self.place_image2tk()
 
         self.window.after( self.delay, self.update )
