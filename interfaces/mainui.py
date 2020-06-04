@@ -26,6 +26,14 @@ def main_ui():
     select_image_btn = tkinter.Button(
             window, text= _("Select image"), 
             width=50, command= commands.select_image )
+    
+    name_label = tkinter.Label(
+        window, text = _('Who is (s)he?')
+    )
+    
+    name_text = tkinter.Text(
+        window,
+    )
 
     window.title ( _('IRU') )
 
@@ -38,6 +46,9 @@ def main_ui():
     select_image_btn.pack(
         anchor=tkinter.CENTER, 
         expand=True )
+
+    name_label.pack()
+    name_text.pack()
     
     commands.update()
     
