@@ -34,7 +34,7 @@ def main_ui():
 
     vid_canvas.grid( 
         column = 0, row = 0 ,
-        columnspan = 2 , rowspan = 6, )
+        columnspan = 2 , rowspan = 7, )
 
 
     snapshot_btn.grid( column=2, row=6 )
