@@ -5,7 +5,8 @@ import cv2
 import PIL.Image, PIL.ImageTk
 import time
 from iru import _
-from _ui._main import VideoCapture, Mix
+from _ui._face_entry import FaceEntry, VideoCapture
+from ui.face_entry_person_grid_ui import   iru_person_grid
 
 def face_entry():
     
@@ -17,15 +18,15 @@ def face_entry():
         window, width = vid.width, 
         height = vid.height)
 
-    mix = Mix( window, vid, vid_canvas )
+    _face_entry = FaceEntry( window, vid, vid_canvas )
 
     snapshot_btn = tkinter.Button(
             window, text= _("Snapshot"), 
-            width=50, command= mix.snapshot )
+            width=50, command= _face_entry.snapshot )
 
     select_image_btn = tkinter.Button(
             window, text= _("Select image"), 
-            width=50, command= mix.select_image )
+            width=50, command= _face_entry.select_image )
     
 
     window.title ( _('IRU') )
@@ -41,69 +42,6 @@ def face_entry():
     select_image_btn.grid( column=3, row=6 )
 
     
-    mix.update()
+    _face_entry.update()
     
     window.mainloop()    
-
-
-def iru_person_grid( window : tkinter.Tk ):
-
-    name_label = tkinter.Label(
-        window, text = _('name')
-    )
-    name_entry = tkinter.Entry(
-        window,
-    )
-
-    age_label = tkinter.Label(
-        window, text = _('age')
-    )
-    age_entry = tkinter.Entry(
-        window,
-    )
-    
-    gender_label = tkinter.Label(
-        window, text = _('gender')
-    )
-
-    gender_entry = tkinter.Entry(
-        window,
-    )
-
-    school_label = tkinter.Label(
-        window, text = _('school')
-    )
-    school_entry = tkinter.Entry(
-        window,
-    )
-    enrolling_date_label = tkinter.Label(
-        window, text = _('enrolling date')
-    )
-    enrolling_date_entry = tkinter.Entry(
-        window,
-    )
-    schooling_length_label = tkinter.Label(
-        window, text = _('schooling length')
-    )
-    schooling_length_entry = tkinter.Entry(
-        window,
-    )
-
-
-    name_label.grid( column=2, row=0 )
-    name_entry.grid( column=3, row=0 )
-
-    age_label.grid( column=2, row=1 )
-    age_entry.grid( column=3, row=1 )
-
-    gender_label.grid( column=2, row=2 )
-    gender_entry.grid( column=3, row=2 )
-
-    school_label.grid( column=2, row=3 )
-    school_entry.grid( column=3, row=3 )
-
-    enrolling_date_label.grid( column=2, row=4 )
-    enrolling_date_entry.grid( column=3, row=4 )
-
-    schooling_length_label.grid( column=2, row=5 )
-    schooling_length_entry.grid( column=3, row=5 )
