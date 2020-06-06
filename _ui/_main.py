@@ -41,7 +41,7 @@ class VideoCapture:
             self.vid.release()
 
 
-class Commands:
+class Mix:
 
     def __init__(
         self,

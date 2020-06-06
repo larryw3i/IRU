@@ -5,7 +5,7 @@ import cv2
 import PIL.Image, PIL.ImageTk
 import time
 from iru import _
-from _ui._main import VideoCapture, Commands
+from _ui._main import VideoCapture, Mix
 
 def face_entry():
     
@@ -17,15 +17,15 @@ def face_entry():
         window, width = vid.width, 
         height = vid.height)
 
-    commands = Commands( window, vid, vid_canvas )
+    mix = Mix( window, vid, vid_canvas )
 
     snapshot_btn = tkinter.Button(
             window, text= _("Snapshot"), 
-            width=50, command= commands.snapshot )
+            width=50, command= mix.snapshot )
 
     select_image_btn = tkinter.Button(
             window, text= _("Select image"), 
-            width=50, command= commands.select_image )
+            width=50, command= mix.select_image )
     
 
     window.title ( _('IRU') )
@@ -41,7 +41,7 @@ def face_entry():
     select_image_btn.grid( column=3, row=6 )
 
     
-    commands.update()
+    mix.update()
     
     window.mainloop()    
 
