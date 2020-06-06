@@ -5,9 +5,11 @@ import cv2
 import PIL.Image, PIL.ImageTk
 import time
 from iru import _
+from _ui._main import MainUI
 
 def main_ui():
     window = tkinter.Tk()
+    _main_ui = MainUI()
 
     window.title( _('I Recognize U') )
     window.resizable(0,0)
@@ -28,11 +30,13 @@ def main_ui():
     to_face_recg = tkinter.Button(
         window, 
         text = _('Face Recognize'),
+        command = _main_ui.to_face_entry
     )
     
     about_label = tkinter.Button(
         window, 
         text = _('About'),
+        command = _main_ui.to_face_recg
     )
 
     hello_label.grid(
