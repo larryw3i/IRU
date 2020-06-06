@@ -56,8 +56,8 @@ def main_ui():
         column = 1
     )
 
-
-
     window.mainloop()
 
     pass
+    
+    
