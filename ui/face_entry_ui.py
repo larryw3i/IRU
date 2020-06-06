@@ -5,9 +5,9 @@ import cv2
 import PIL.Image, PIL.ImageTk
 import time
 from iru import _
-from _interfaces._mainui import VideoCapture, Commands
+from _ui._main import VideoCapture, Commands
 
-def main_ui():
+def face_entry():
     
     window = tkinter.Tk()
     vid = VideoCapture()
