@@ -12,3 +12,6 @@ class MainUI:
 
     def to_face_entry(self):
         face_entry()
+    
+    def get_iru_persons( self ):
+        

@@ -13,7 +13,6 @@ def main_ui():
 
     window.title( _('I Recognize U') )
     window.resizable(0,0)
-
     
     hello_label = tkinter.Label( 
         window, 

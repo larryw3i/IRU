@@ -13,7 +13,6 @@ def face_entry():
     face_entry_window = tkinter.Toplevel()
     vid = VideoCapture()
     
-
     vid_canvas = tkinter.Canvas(
         face_entry_window, width = vid.width, 
         height = vid.height)
@@ -43,5 +42,9 @@ def face_entry():
 
     
     _face_entry.update()
+    
+    face_entry_window.protocol(
+        "WM_DELETE_WINDOW", 
+        _face_entry.close_face_entry )
     
     face_entry_window.mainloop()    

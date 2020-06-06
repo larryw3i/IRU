@@ -36,7 +36,7 @@ class VideoCapture:
         else:
             return (ret, None)
 
-    def __del__(self):
+    def close_vidc(self):
         if self.vid.isOpened():
             self.vid.release()
 
@@ -125,4 +125,7 @@ class FaceEntry:
 
         self.window.after( self.delay, self.update )
 
-    
+    def close_face_entry(self):
+        self.stop_getting_frame = True
+        self.vid.close_vidc()
+        self.window.destroy()
