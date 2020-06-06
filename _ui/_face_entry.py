@@ -13,8 +13,12 @@ class VideoCapture:
     def __init__(
         self, 
         video_source = 0):
+        self.video_source = video_source
 
-        self.vid = cv2.VideoCapture(video_source)
+    
+    def open_vidc(self):
+        self.vid = cv2.VideoCapture( 
+            self.video_source)
 
         if not self.vid.isOpened():
             raise ValueError( \
@@ -26,13 +30,13 @@ class VideoCapture:
 
     def get_frame(self):
         if self.vid.isOpened():
-            ret, frame = self.vid.read()
-            if ret:
+            self.open_vidc()
 
-                return (ret, cv2.cvtColor(
-                    frame, cv2.COLOR_BGR2RGB))
-            else:
-                return (ret, None)
+        ret, self.frame = self.vid.read()
+        if ret:
+
+            return (ret, cv2.cvtColor(
+                self.frame, cv2.COLOR_BGR2RGB))
         else:
             return (ret, None)
 
@@ -55,7 +59,7 @@ class FaceEntry:
         self.vid = vid
         self.canvas = canvas
         self.delay = delay
-        self.stop_getting_frame = False
+        self.stop_updating_frame = False
     
     def place_image2tk(self):
 
@@ -78,13 +82,13 @@ class FaceEntry:
 
     def  select_image(self):
 
-        self.stop_getting_frame = True
+        self.stop_updating_frame = True
 
         path = filedialog.askopenfilename(\
             filetypes=[("Image File",'.jpg')])
 
         if not path: 
-            self.stop_getting_frame = False
+            self.stop_updating_frame = False
             return
 
         self.frame = face_recognition.load_image_file( path )
@@ -105,14 +109,14 @@ class FaceEntry:
 
             self.make_rect4face()
 
-            self.stop_getting_frame = True
+            self.stop_updating_frame = True
 
             self.place_image2tk()
             
 
-    def update(self):
+    def update_frame(self):
 
-        if self.stop_getting_frame: return
+        if self.stop_updating_frame: return
 
         ret, self.frame = self.vid.get_frame()
 
@@ -126,6 +130,6 @@ class FaceEntry:
         self.window.after( self.delay, self.update )
 
     def close_face_entry(self):
-        self.stop_getting_frame = True
+        self.stop_updating_frame = True
         self.vid.close_vidc()
         self.window.destroy()
