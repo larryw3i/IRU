@@ -25,18 +25,18 @@ def main_ui():
     to_face_entry = tkinter.Button(
         window, 
         text = _('Face entry'),
+        command = _main_ui.to_face_entry
     )
     
     to_face_recg = tkinter.Button(
         window, 
         text = _('Face Recognize'),
-        command = _main_ui.to_face_entry
+        command = _main_ui.to_face_recg
     )
     
     about_label = tkinter.Button(
         window, 
         text = _('About'),
-        command = _main_ui.to_face_recg
     )
 
     hello_label.grid(
