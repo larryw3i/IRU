@@ -10,28 +10,28 @@ from ui.face_entry_person_grid_ui import   iru_person_grid
 
 def face_entry():
     
-    window = tkinter.Tk()
+    face_entry_window = tkinter.Toplevel()
     vid = VideoCapture()
     
 
     vid_canvas = tkinter.Canvas(
-        window, width = vid.width, 
+        face_entry_window, width = vid.width, 
         height = vid.height)
 
-    _face_entry = FaceEntry( window, vid, vid_canvas )
+    _face_entry = FaceEntry( face_entry_window, vid, vid_canvas )
 
     snapshot_btn = tkinter.Button(
-            window, text= _("Snapshot"), 
+            face_entry_window, text= _("Snapshot"), 
             width=50, command= _face_entry.snapshot )
 
     select_image_btn = tkinter.Button(
-            window, text= _("Select image"), 
+            face_entry_window, text= _("Select image"), 
             width=50, command= _face_entry.select_image )
     
 
-    window.title ( _('IRU') )
+    face_entry_window.title ( _('IRU') )
 
-    iru_person_grid( window )
+    iru_person_grid( face_entry_window )
 
     vid_canvas.grid( 
         column = 0, row = 0 ,
@@ -44,4 +44,4 @@ def face_entry():
     
     _face_entry.update()
     
-    window.mainloop()    
+    face_entry_window.mainloop()    
