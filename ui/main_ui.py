@@ -29,6 +29,11 @@ def main_ui():
         window, 
         text = _('Face Recognize'),
     )
+    
+    about_label = tkinter.Button(
+        window, 
+        text = _('About'),
+    )
 
     hello_label.grid(
         row = 0 , 
@@ -44,6 +49,14 @@ def main_ui():
         row = 1 , 
         column = 2
     )
+
+
+    about_label.grid(
+        row = 2 , 
+        column = 1
+    )
+
+
 
     window.mainloop()
 
