@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: unnamed project\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-04-20 08:39+0000\n"
-"PO-Revision-Date: 2020-05-16 09:47+0800\n"
+"PO-Revision-Date: 2020-10-17 19:53+0800\n"
 "Last-Translator: larry <larryw3i@163.com>\n"
 "Language-Team: Chinese (Simplified) <larryw3i@163.com>\n"
 "Language: zh\n"
@@ -23,4 +23,3 @@ msgstr ""
 #: templates/funhome/_navbar.html:32
 msgid "Eduhub"
 msgstr "教育"
-
