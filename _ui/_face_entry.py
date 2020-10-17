@@ -5,7 +5,6 @@ import tkinter
 import cv2
 from PIL import Image, ImageTk
 import time
-from iru import _
 import face_recognition
 
 
