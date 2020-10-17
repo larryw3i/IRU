@@ -1,6 +1,7 @@
 
 import os
 import pickle
+import tkinter
 from tkinter import messagebox
 from ui.face_entry_ui import face_entry
 from ui.face_recg_ui import face_recg

@@ -16,11 +16,16 @@ _ = gettext.translation('iru', 'locale', [ default_locale ] )\
     .gettext
 
 root_path = os.getcwd()
+db_path =  os.path.join( root_path, 'data', 'iru.db' )
+
+if not os.path.exists( db_path ):
+    os.mkdir( root_path+'/data' )
+    with open( db_path, 'w' ) as f: pass
 
 db  = orm.Database()
 db.bind(
     provider='sqlite', 
-    filename= os.path.join( root_path, 'data', 'iru.db' ) , 
+    filename= db_path , 
     create_db=True)
 
 if __name__ == "__main__":
