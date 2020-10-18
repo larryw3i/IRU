@@ -1,3 +1,4 @@
+#!/bin/bash
 echo 'push to git@gitee.com:larryw3i/iru.git'
 git push git@gitee.com:larryw3i/iru.git
 
