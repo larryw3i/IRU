@@ -134,3 +134,4 @@ dmypy.json
 .vscode/
 .idea/
 data/
+git_push.sh
